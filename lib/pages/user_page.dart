@@ -14,15 +14,42 @@ class _UserFormPageState extends State<UserFormPage> {
   final _emailController = TextEditingController();
 
   @override
-  void initState(){
+  void initState() {
     super.initState();
-    if(widget.user != null){
+    if (widget.user != null) {
       _nameController.text = widget.user!.name;
       _emailController.text = widget.user!.email;
     }
   }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold();
+    final isEditing = widget.user != null;
+    return Scaffold(
+      appBar: AppBar(title: Text(isEditing ? "Edit User" : "Tambah User")),
+      body: Padding(
+        padding: EdgeInsetsGeometry.all(16.0),
+        child: Column(
+          children: [
+            TextField(
+              controller: _nameController,
+              decoration: InputDecoration(
+                labelText: "Nama Lengkap",
+                border: OutlineInputBorder(),
+              ),
+            ),
+            SizedBox(height: 16.0),
+            TextField(
+              controller: _emailController,
+              decoration: InputDecoration(
+                labelText: "Email",
+                border: OutlineInputBorder(),
+              ),
+            ),
+            const SizedBox(height: 16.0),
+          ],
+        ),
+      ),
+    );
   }
 }
