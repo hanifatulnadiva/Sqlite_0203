@@ -15,7 +15,7 @@ class HomePage extends StatelessWidget {
       body:BlocBuilder<UserBloc, UserState>(
         builder: (context,state){
           if(state is UserLoading) return const Center(child: CircularProgressIndicator());
-          if(state is UserLoaded){
+          if(state is UserLoaded && state.users.isNotEmpty){
             return ListView.builder(
               itemCount:state.users.length,
               itemBuilder: (context, index){
