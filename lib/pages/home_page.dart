@@ -45,6 +45,10 @@ class HomePage extends StatelessWidget {
           return const Center(child: Text('Belum ada User, Klik + untuk menambah.'));
         },
       ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const UserFormPage())),
+        child: const Icon(Icons.add),
+      ),
     );
   }
 }
