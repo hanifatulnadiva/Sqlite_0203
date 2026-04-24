@@ -22,6 +22,8 @@ class UserRepositoryImpl  implements UserRepository{
       id:user.id,
       name:user.name,
       email:user.email,
+      nohp: user.nohp,
+      alamat: user.alamat
     );
     await db.insert('users', userModel.toMap());
   }
@@ -33,6 +35,8 @@ class UserRepositoryImpl  implements UserRepository{
       id: user.id,
       name: user.name,
       email: user.email,
+      nohp:user.nohp,
+      alamat:user.alamat
     );
     await db.update(
       'users', 
