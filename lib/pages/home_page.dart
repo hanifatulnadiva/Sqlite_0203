@@ -23,7 +23,21 @@ class HomePage extends StatelessWidget {
                 return ListTile(
                   title: Text(user.name),
                   subtitle: Text(user.email),
-                  
+                  trailing:Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      IconButton(
+                        icon: const Icon(Icons.edit),
+                        onPressed: () =>Navigator.push(context,
+                        MaterialPageRoute(builder:(_) => UserFormPage(user:user)),
+                        ),
+                      ),
+                      IconButton(
+                        icon: const Icon(Icons.delete, color:Colors.red),
+                        onPressed: () => context.read<UserBloc>().add(DeleteUserEvent(user.id)),
+                      ),
+                    ],
+                  )
                 );
               },
             );
