@@ -30,7 +30,7 @@ class _UserFormPageState extends State<UserFormPage> {
     return Scaffold(
       appBar: AppBar(title:Text(isEditing ? "Edit User":"Tambah User")),
       body: Padding(
-        padding:EdgeInsetsGeometry.all(16.0),
+        padding:EdgeInsets.all(16.0),
         child:Column(children: [
           TextField(controller:_nameController,
           decoration:InputDecoration(labelText:"Nama Lengkap", border:OutlineInputBorder()),
@@ -44,8 +44,8 @@ class _UserFormPageState extends State<UserFormPage> {
             width: double.infinity,
             height: 58,
             child:ElevatedButton(onPressed: (){
-              final newUser=UserEntity(
-                id: isEditing ?widget.user!.id :DateTime.now().millisecondsSinceEpoch.toString(),
+              final newUser = UserEntity(
+                id: isEditing ? widget.user!.id :DateTime.now().millisecondsSinceEpoch.toString(),
                 name: _nameController.text,
                 email: _emailController.text,
               );

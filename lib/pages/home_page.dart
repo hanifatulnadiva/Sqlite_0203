@@ -27,7 +27,7 @@ class HomePage extends StatelessWidget {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       IconButton(
-                        icon: const Icon(Icons.edit),
+                        icon: const Icon(Icons.edit, color:Colors.blue),
                         onPressed: () =>Navigator.push(context,
                         MaterialPageRoute(builder:(_) => UserFormPage(user:user)),
                         ),
@@ -46,9 +46,13 @@ class HomePage extends StatelessWidget {
         },
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const UserFormPage())),
+        onPressed: () => Navigator.push(
+          context,
+          MaterialPageRoute(builder: (_) => const UserFormPage()),
+        ),
         child: const Icon(Icons.add),
       ),
+      
     );
   }
 }
