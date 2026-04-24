@@ -1,4 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:sqlite/bloc/user_bloc.dart';
+import 'package:sqlite/bloc/user_event.dart';
+import 'package:sqlite/bloc/user_state.dart';
+import 'package:sqlite/pages/user_page.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -7,7 +12,25 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title:const Text('Daftar User')),
-
+      body:BlocBuilder<UserBloc, UserState>(
+        builder: (context,state){
+          if(state is UserLoading) return const Center(child: CircularProgressIndicator());
+          if(state is UserLoaded){
+            return ListView.builder(
+              itemCount:state.users.length,
+              itemBuilder: (context, index){
+                final user =state.users[index];
+                return ListTile(
+                  title: Text(user.name),
+                  subtitle: Text(user.email),
+                  
+                );
+              },
+            );
+          }
+          return const Center(child: Text('Belum ada User, Klik + untuk menambah.'));
+        },
+      ),
     );
   }
 }
