@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_intl_phone_field/flutter_intl_phone_field.dart';
 import 'package:sqlite/bloc/user_bloc.dart';
 import 'package:sqlite/bloc/user_event.dart';
 import 'package:sqlite/domain/entities/user_entity.dart';
@@ -15,6 +16,8 @@ class UserFormPage extends StatefulWidget {
 class _UserFormPageState extends State<UserFormPage> {
   final _nameController = TextEditingController();
   final _emailController = TextEditingController();
+  final _nohpController = TextEditingController();
+  final _alamatController = TextEditingController();
 
   @override
   void initState(){
@@ -22,6 +25,8 @@ class _UserFormPageState extends State<UserFormPage> {
     if(widget.user != null){
       _nameController.text = widget.user!.name;
       _emailController.text = widget.user!.email;
+      _nohpController.text = widget.user!.nohp;
+      _alamatController.text=widget.user!.alamat;
     }
   }
   @override
@@ -37,7 +42,30 @@ class _UserFormPageState extends State<UserFormPage> {
           ),
           SizedBox(height:16.0),
           TextField(controller:_emailController,
+          keyboardType: TextInputType.emailAddress,
           decoration:InputDecoration(labelText:"Email", border:OutlineInputBorder()),
+          ),
+          SizedBox(height:16.0),
+          IntlPhoneField(controller:_nohpController,
+            keyboardType: TextInputType.phone,
+            decoration:InputDecoration(labelText:"Nomor Hp", border:OutlineInputBorder()),
+            initialCountryCode: 'ID',
+            onChanged: (value){
+              print(value.completeNumber);
+            },
+            validator:(value){
+              if(value == null||value.number.isEmpty){
+                return "nohp wajib diisi";
+              }
+              if(value.completeNumber.length > 15){
+                return "Maksimal 15 karakter";
+              }
+              return null;
+            },
+          ),
+          SizedBox(height:16.0),
+          TextField(controller:_alamatController,
+          decoration:InputDecoration(labelText:"Alamat", border:OutlineInputBorder()),
           ),
           const SizedBox(height:16.0),
           SizedBox(
@@ -48,6 +76,8 @@ class _UserFormPageState extends State<UserFormPage> {
                 id: isEditing ? widget.user!.id :DateTime.now().millisecondsSinceEpoch.toString(),
                 name: _nameController.text,
                 email: _emailController.text,
+                nohp: _nohpController.text,
+                alamat: _alamatController.text
               );
               if(isEditing){
                 context.read<UserBloc>().add(UpdateUserEvent(newUser));
